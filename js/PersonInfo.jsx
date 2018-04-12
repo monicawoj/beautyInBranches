@@ -61,6 +61,9 @@ class PersonInfo extends React.Component {
                 {father ? <div style={divStyle}>
                     Father: <span style={spanStyle}>{father}</span>
                 </div> : null}
+                {mother && !father ? <div style={divStyle}>
+                    Parent: <span style={spanStyle}>{mother}</span>
+                </div> : null}
                 {spouse ? <div style={divStyle}>
                     Spouse: <span style={spanStyle}>{spouse}</span>
                 </div> : null}

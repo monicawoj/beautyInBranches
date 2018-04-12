@@ -17,6 +17,7 @@ class LoadDataSection extends React.Component {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
+            margin: '0 auto',
         };
 
         const buttonStyle = {
@@ -393,7 +394,10 @@ class App extends React.Component {
                 }
             })
             .parentId((d) => {
-                if (d.mother || d.father) {
+                if (d.parent) {
+                    return d.parent
+                }
+                else if (d.mother || d.father) {
                     return this.cleanName(`${d.mother}-${d.father}`)
                 } else {
                     return '';
@@ -407,8 +411,8 @@ class App extends React.Component {
         });
 
         data.each((d) => {
-            d.child = (d.data.sex === 'Female') ? this.cleanName(`${d.data.first} ${d.data.last}-${d.data.spouse}`) : this.cleanName(`${d.data.spouse}-${d.data.first} ${d.data.last}`);
-            d.parent = (d.data.mother || d.data.father) ? this.cleanName(`${d.data.mother}-${d.data.father}`) : '';
+            d.child = (d.data.sex === 'Female') ? this.cleanName(`${d.data.first} ${d.data.last}-${d.data.spouse ? d.data.spouse : ''}`) : this.cleanName(`${d.data.spouse ? d.data.spouse : ''}-${d.data.first} ${d.data.last}`);
+            d.parent = (d.data.mother || d.data.father) ? this.cleanName(`${d.data.mother ? d.data.mother : ''}-${d.data.father ? d.data.father : ''}`) : '';
         });
 
         const appStyles = {

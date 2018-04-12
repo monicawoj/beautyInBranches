@@ -20,9 +20,9 @@ class AddPersonMenu extends React.Component {
             parent,
         };
         person.fullName = `${first} ${last}`;
-        person.child =  (sex === 'Female') ? this.props.cleanName(`${first} ${last}-${spouse}`) : this.props.cleanName(`${spouse}-${first} ${last}`);
+        person.child =  (sex === 'Female') ? this.props.cleanName(`${first} ${last}-${spouse ? spouse : ''}`) : this.props.cleanName(`${spouse ? spouse : ''}-${first} ${last}`);
         person.surname = (sex === 'Female' && spouse) ? spouse.split(' ')[1] : last;
-        person.parent = (mother || father) ? this.props.cleanName(`${mother}-${father}`) : '';
+        person.parent = (mother || father) ? this.props.cleanName(`${mother ? mother : ''}-${father ? father : ''}`) : '';
 
         let parents = [];
         data.each(person => {

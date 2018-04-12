@@ -184,7 +184,7 @@ class Tree extends React.Component {
         function mouseoverTextStyle(node) {
             return {
                 textAnchor: 'middle',
-                fontSize: '12px',
+                fontSize: '1em',
                 fill: 'black',
                 x: node.x,
                 y: node.y,
