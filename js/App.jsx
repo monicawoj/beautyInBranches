@@ -206,16 +206,22 @@ class App extends React.Component {
     convertCsvToJson = (csvContents) => {
         const jsonData = csvParse(csvContents);
         this.setState({
-           rawdata: [...jsonData],
+            rawdata: [...jsonData],
+            menuExpanded: false,
+            svgFullWidth: true,
         });
+        this.returnToAdd();
     };
 
     addNewPerson = (e,person) => {
         e.preventDefault();
+        console.log(person);
 
         if (person.first && person.last && person.sex && person.parent) {
             const currentData = this.state.rawdata;
+            console.log(currentData);
             const newData = [...currentData];
+            console.log(newData);
             newData.push(person);
             this.setState({
                 rawdata: newData,
@@ -230,10 +236,12 @@ class App extends React.Component {
         } else if (!person.first) {
             this.setState({
                 errorFirstName: true,
+                errorLastName: false,
             });
         } else if (!person.last) {
             this.setState({
                 errorLastName: true,
+                errorFirstName: false,
             });
         }
 
@@ -274,7 +282,7 @@ class App extends React.Component {
     };
 
     deleteNode = (node) => {
-        const dataAfterNodeDelete = this.state.rawdata.filter(person => person.fullName !== node.data.data.fullName);
+        const dataAfterNodeDelete = this.state.rawdata.filter(person => `${person.first} ${person.last}` !== `${node.data.data.first} ${node.data.data.last}`);
         this.setState({
             rawdata: dataAfterNodeDelete,
         });
@@ -377,16 +385,16 @@ class App extends React.Component {
         const svgWidthFactor = svgFullWidth ? 1 : 0.7;
 
         const data = stratify()
-            .id(function(d) {
+            .id((d) => {
                 if (d.sex === 'Female') {
-                    return `${d.first} ${d.last}-${d.spouse}`
+                    return this.cleanName(`${d.first} ${d.last}-${d.spouse}`)
                 } else {
-                    return `${d.spouse}-${d.first} ${d.last}`
+                    return this.cleanName(`${d.spouse}-${d.first} ${d.last}`)
                 }
             })
-            .parentId(function(d) {
+            .parentId((d) => {
                 if (d.mother || d.father) {
-                    return `${d.mother}-${d.father}`
+                    return this.cleanName(`${d.mother}-${d.father}`)
                 } else {
                     return '';
                 }
@@ -398,9 +406,9 @@ class App extends React.Component {
             d.surname = (d.data.sex === 'Female' && d.data.spouse) ? `${d.data.spouse.split(' ')[1]}` : `${d.data.last}`;
         });
 
-        data.each(function(d) {
-            d.child = (d.data.sex === 'Female') ? `${d.data.first} ${d.data.last}-${d.data.spouse}` : `${d.data.spouse}-${d.data.first} ${d.data.last}`;
-            d.parent = (d.data.mother || d.data.father) ? `${d.data.mother}-${d.data.father}` : '';
+        data.each((d) => {
+            d.child = (d.data.sex === 'Female') ? this.cleanName(`${d.data.first} ${d.data.last}-${d.data.spouse}`) : this.cleanName(`${d.data.spouse}-${d.data.first} ${d.data.last}`);
+            d.parent = (d.data.mother || d.data.father) ? this.cleanName(`${d.data.mother}-${d.data.father}`) : '';
         });
 
         const appStyles = {

@@ -144,7 +144,6 @@ class Tree extends React.Component {
                 surnameList.push(surname);
             }
         });
-        console.log(surnameList);
 
         // create color hue scale based on total amount of leaves (nodes with no children)
         const hueDistance = Math.floor(360/surnameList.length);

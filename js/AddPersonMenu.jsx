@@ -2,7 +2,7 @@ import React from "react";
 
 class AddPersonMenu extends React.Component {
     render() {
-        const {first, last, mother, father, birthDate, birthLocation, email, info, spouse, sex} = this.props.person;
+        const {first, last, mother, father, birthDate, birthLocation, email, info, spouse, sex, parent} = this.props.person;
         const {data} = this.props;
         console.log(data);
 
@@ -17,16 +17,18 @@ class AddPersonMenu extends React.Component {
             info,
             sex,
             spouse,
+            parent,
         };
         person.fullName = `${first} ${last}`;
-        person.child =  (sex === 'Female') ? `${first} ${last}-${spouse}` : `${spouse}-${first} ${last}`;
+        person.child =  (sex === 'Female') ? this.props.cleanName(`${first} ${last}-${spouse}`) : this.props.cleanName(`${spouse}-${first} ${last}`);
         person.surname = (sex === 'Female' && spouse) ? spouse.split(' ')[1] : last;
-        person.parent = (mother || father) ? `${mother}-${father}` : '';
+        person.parent = (mother || father) ? this.props.cleanName(`${mother}-${father}`) : '';
 
         let parents = [];
         data.each(person => {
             parents.push(person.child);
         });
+        console.log(parents);
 
         const parentOptions = parents.map(name => {
             return <option key={name} value={name}>{name}</option>
@@ -128,9 +130,8 @@ class AddPersonMenu extends React.Component {
                     style={labelStyle}>
                     Rodzic(e)
                     <select
-                        value={parent}
+                        value={this.props.cleanName(`${mother}-${father}`)}
                         onChange={e => this.props.handleParentChange(e)}>
-                        <option value=''>Not available</option>
                         {parentOptions}
                     </select>
                 </label>
