@@ -74,6 +74,7 @@ class DownloadUploadCSV extends React.Component {
                onMouseOver={e => this.setState({uploadHover : true})}
                onMouseOut={e => this.setState({uploadHover : false})}
                href='#LoadDataSection'
+               onClick={e => this.props.smoothScroll(e,'#LoadDataSection')}
                download={result.filename}>
                 <p style={uploadTextStyle}>
                     Upload new data

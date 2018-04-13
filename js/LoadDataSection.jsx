@@ -1,8 +1,12 @@
 import React from "react";
 
 class LoadDataSection extends React.Component {
-    render() {
+    handleLoadDataClick = (e) => {
+        this.props.convertCsvToJson(this.props.csvContents);
+        this.props.smoothScroll(e, '#MainHeader');
+    };
 
+    render() {
         const tableSectionStyle = {
             height: '100vh',
             width:'100%',
@@ -11,6 +15,14 @@ class LoadDataSection extends React.Component {
             alignItems: 'center',
             justifyContent: 'center',
             margin: '0 auto',
+        };
+
+        const buttonSectionStyle = {
+            width:'80%',
+            display:'flex',
+            flexDirection:'row',
+            justifyContent:'space-around',
+            alignItems:'center'
         };
 
         const buttonStyle = {
@@ -77,7 +89,7 @@ class LoadDataSection extends React.Component {
             <p>
                 <span style={{color:'LightCoral'}}>Are you sure?</span> This will remove all of your existing data and replace with new data located in your CSV file.
             </p>
-            <div style={{width:'80%', display:'flex', flexDirection:'row', justifyContent:'space-around', alignItems:'center'}}>
+            <div style={buttonSectionStyle}>
                 <div style={{...buttonStyle, background: 'white', color:'black', flex:2}}>
                     <input onChange={this.props.handleFileUploadChange}
                            type='file'
@@ -87,7 +99,7 @@ class LoadDataSection extends React.Component {
                 </div>
                 <a
                     href='#MainHeader'
-                    onClick={e => this.props.convertCsvToJson(this.props.csvContents)}
+                    onClick={e => this.handleLoadDataClick(e)}
                     style={{...buttonStyle, background: (this.props.pathToCsv) ? '#00cc66' : 'grey', marginBottom:'5px', textDecoration:'none'}}>
                     <p>submit</p>
                 </a>

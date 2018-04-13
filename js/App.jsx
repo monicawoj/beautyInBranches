@@ -200,6 +200,11 @@ class App extends React.Component {
         return result;
     };
 
+    smoothScroll = (e,target) => {
+        e.preventDefault();
+        document.querySelector(target).scrollIntoView({ behavior: 'smooth' });
+    };
+
     render() {
         const {rawdata, svgFullWidth} = this.state;
         const width = this.state.screenWidth;
@@ -277,9 +282,11 @@ class App extends React.Component {
                         size={[width*svgWidthFactor, height*0.9]}/>
                 </div>
                 <DownloadUploadCSV
+                    smoothScroll={this.smoothScroll}
                     data={this.state.rawdata}
                     downloadCSV={this.downloadCSV}/>
                 <LoadDataSection
+                    smoothScroll={this.smoothScroll}
                     convertCsvToJson={this.convertCsvToJson}
                     handleFileUploadChange={this.handleFileUploadChange}
                     pathToCsv={this.state.pathToCsv}
