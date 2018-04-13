@@ -205,7 +205,9 @@ class Tree extends React.Component {
                 <circle
                     style={initialNodeCircleStyle(node)}
                     className={'node-circle'}/>
-                <text style={mouseoverTextStyle(node)} className='node-text'>{this.props.cleanName(node.data.id)}</text>
+                <text
+                    style={mouseoverTextStyle(node)}
+                    className='node-text'>{this.props.cleanName(node.data.id)}</text>
                 {this.generateTrunk(node)}
             </g>
         });
@@ -214,14 +216,28 @@ class Tree extends React.Component {
 
     render() {
         this.createTree(this.props.data);
-//width = width*0.7, height = height*0.9
+        const treeHolderStyle = {
+            transition:'width 1s',
+            flex:1,
+            display:'flex',
+            flexDirection:'column',
+            alignItems:'center',
+            minWidth:`${this.props.size[0]}px`,
+            height:`${this.props.size[1]}px`
+        };
+        const svgStyle = {
+            width: '100%',
+            height:'90%'
+        };
+        const gStyle = {
+            transform:`translate(${this.margin.left}px, ${this.height + this.margin.top}px)`
+        };
 
-        return <div style={{transition:'width 1s', flex:1, display:'flex', flexDirection:'column', alignItems:'center', minWidth:`${this.props.size[0]}px`, height:`${this.props.size[1]}px`}}>
-            <svg style={{width: '100%', height:'90%'}}>
-                 <g style={{transform:`translate(${this.margin.left}px,${this.height + this.margin.top}px)`}}>
-            {(this.state.opacity > 0) ? this.generateLinks(this.state.opacity) : this.links}
-            {this.nodes}
-        </g>
+        return <div style={treeHolderStyle}>
+            <svg style={svgStyle}>
+                 <g style={gStyle}>
+                    {this.state.opacity > 0 ? this.generateLinks(this.state.opacity) : this.links}
+                    {this.nodes}</g>
             </svg>
             <Grass size={this.props.size}/>
         </div>

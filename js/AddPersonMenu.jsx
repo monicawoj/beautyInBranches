@@ -3,8 +3,8 @@ import React from "react";
 class AddPersonMenu extends React.Component {
     render() {
         const {first, last, mother, father, birthDate, birthLocation, email, info, spouse, sex, parent} = this.props.person;
+
         const {data} = this.props;
-        console.log(data);
 
         const person = {
             first,
@@ -28,7 +28,6 @@ class AddPersonMenu extends React.Component {
         data.each(person => {
             parents.push(person.child);
         });
-        console.log(parents);
 
         const parentOptions = parents.map(name => {
             return <option key={name} value={name}>{name}</option>
