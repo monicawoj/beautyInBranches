@@ -32,7 +32,7 @@ class DownloadUploadCSV extends React.Component {
 
         return <div style={{
             position: 'absolute',
-            top: '15%',
+            top: '18%',
             right: '30px',
         }}>
             <a style={downloadButtonStyle}
