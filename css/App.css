@@ -2,19 +2,18 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Handlee', cursive;
-    /*font-family: 'Lato', sans-serif;*/
+    font-family: 'Lato', sans-serif;
 }
 
 input, select, textarea, button {
     display: block;
     margin-left: 8px;
     width: calc(90% - 10px);
-    font-family: 'Handlee', cursive;
     font-size: 16px;
     border: 1px solid grey;
     border-radius: 4px;
     background: white;
+    font-family: 'Lato', sans-serif;
 }
 
 table {
@@ -26,6 +25,7 @@ table {
 table td, table th {
     border: 1px solid #ddd;
     padding: 8px;
+    /*overflow-wrap: break-word;*/
 }
 
 table tr:nth-child(even){background-color: #f2f2f2;}

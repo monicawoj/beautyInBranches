@@ -9,29 +9,6 @@ class DownloadUploadCSV extends React.Component {
         }
     }
 
-    buttonStyle = (hoverType) => {
-        return {
-            width: (hoverType) ? '100px' : '50px',
-            height: '50px',
-            backgroundColor: 'white',
-            borderRadius: (hoverType) ? '5px' : '50%',
-            boxShadow: (hoverType) ? '0 6px 10px 0 #666' : '0 6px 14px 0 #666',
-            transition: 'all 0.1s ease-in-out',
-
-            fontSize: '0.6em',
-            color: 'royalblue',
-            textAlign: 'center',
-            textDecoration: 'none',
-
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-
-            transform: (hoverType) ? 'scale(1.05)' : '',
-            marginBottom: '20px',
-        }
-    };
-
     render() {
         const {uploadHover, downloadHover} = this.state;
         const currentDate = new Date();
@@ -42,8 +19,8 @@ class DownloadUploadCSV extends React.Component {
             filename: `myTreeData_${year}${month}${day}.csv`,
             data: this.props.data,
         });
-        const downloadButtonStyle = this.buttonStyle(downloadHover);
-        const uploadButtonStyle = this.buttonStyle(uploadHover);
+        const downloadButtonStyle = this.props.buttonStyle(downloadHover);
+        const uploadButtonStyle = this.props.buttonStyle(uploadHover);
         const downloadTextStyle = {
             fontSize: downloadHover ? '12px' : '0',
             color: downloadHover ? 'royalblue' : 'white',

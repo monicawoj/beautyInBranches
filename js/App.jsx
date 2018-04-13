@@ -8,6 +8,7 @@ import { csvParse } from "d3-dsv";
 import MainHeader from './MainHeader.jsx';
 import LoadDataSection from './LoadDataSection.jsx';
 import DownloadUploadCSV from './DownloadUploadCSV.jsx';
+import firebase from './firebase.js';
 
 class App extends React.Component {
     constructor() {
@@ -23,8 +24,37 @@ class App extends React.Component {
             errorLastName: false,
             pathToCsv: '',
             csvContents: '',
+            peopleRef: null,
         };
     }
+
+    removeItemFromDatabase = (personId) => {
+        const peopleRef = firebase.database().ref(`/people/${personId}`);
+        peopleRef.remove();
+    };
+
+    buttonStyle = (hoverType) => {
+        return {
+            width: (hoverType) ? '100px' : '50px',
+            height: '50px',
+            backgroundColor: 'white',
+            borderRadius: (hoverType) ? '5px' : '50%',
+            boxShadow: (hoverType) ? '0 6px 10px 0 #666' : '0 6px 14px 0 #666',
+            transition: 'all 0.1s ease-in-out',
+
+            fontSize: '0.6em',
+            color: 'royalblue',
+            textAlign: 'center',
+            textDecoration: 'none',
+
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+
+            transform: (hoverType) ? 'scale(1.05)' : '',
+            marginBottom: '20px',
+        }
+    };
 
     convertCsvToJson = (csvContents) => {
         const jsonData = csvParse(csvContents);
@@ -40,6 +70,7 @@ class App extends React.Component {
         e.preventDefault();
 
         if (person.first && person.last && person.sex && person.parent) {
+
             const currentData = this.state.rawdata;
             console.log(currentData);
             const newData = [...currentData];
@@ -282,10 +313,12 @@ class App extends React.Component {
                         size={[width*svgWidthFactor, height*0.9]}/>
                 </div>
                 <DownloadUploadCSV
+                    buttonStyle={this.buttonStyle}
                     smoothScroll={this.smoothScroll}
                     data={this.state.rawdata}
                     downloadCSV={this.downloadCSV}/>
                 <LoadDataSection
+                    buttonStyle={this.buttonStyle}
                     smoothScroll={this.smoothScroll}
                     convertCsvToJson={this.convertCsvToJson}
                     handleFileUploadChange={this.handleFileUploadChange}

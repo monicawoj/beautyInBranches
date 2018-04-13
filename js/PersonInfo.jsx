@@ -38,11 +38,10 @@ class PersonInfo extends React.Component {
             transition:'width 1s',
             overflow: 'scroll',
             background: 'white',
-            height:this.props.size[1],
             width:this.props.size[0],
             flex:'auto',
             display:'flex',
-            marginBottom: '10%',
+            marginBottom: '20%',
             justifyContent:'flex-start',
             flexDirection:'column'}}>
             <div style={{width:'inherit', marginBottom:'50px'}}>
@@ -89,7 +88,7 @@ class PersonInfo extends React.Component {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '50px',
+                height: '70px',
             }}>
                 <div style={{width:'100%', display:'flex', flexDirection:'row', justifyContent:'space-around', alignItems:'center'}}>
                     <div

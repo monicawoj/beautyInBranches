@@ -25,7 +25,7 @@ class MainHeader extends React.Component {
             <div style={{padding: h1size*0.5}}>
                 <h1 style={{textAlign: 'center', fontSize:h1size}}>
                     <span style={spanStyle}>beauty </span>
-                    in the
+                    in
                     <span style={spanStyle}> branches</span>
                 </h1>
             </div>

@@ -72,11 +72,10 @@ class AddPersonMenu extends React.Component {
             transition:'width 1s',
             overflow: 'scroll',
             background: 'white',
-            height:this.props.size[1],
             width:this.props.size[0],
             flex:'auto',
             display:'flex',
-            marginBottom: '10%',
+            marginBottom: '20%',
             justifyContent:'flex-start',
             flexDirection:'column'}}>
             <form style={{width:'inherit', marginBottom:'50px'}}>
@@ -180,7 +179,8 @@ class AddPersonMenu extends React.Component {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '50px',
+                height: '70px',
+                borderTop: '1px solid royalblue',
             }}>
                 <div
                     className='button addToTree'
